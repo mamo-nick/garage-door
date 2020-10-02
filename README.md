@@ -1,1 +1,1 @@
-# garage-door
+Cílem tohoto projektu je 
