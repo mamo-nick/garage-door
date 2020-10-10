@@ -50,9 +50,22 @@ Napájení je realizováno z jednotky SIMU, kde je ze svorek 10 (+) a 12 (-) br�
 
 Relé desky je na vstupu propojeno s SIMU jednotkou, svorka 14 (+) a na výstupu svorka 18 (-). Použit UTP kabel (zbývající 2x dvě žíly).
 Magnetický senzor je připojen dvoulinkou k GPIO14 a Ground. Samotné umístění senzoru je u podlahy, tedy jeho sepnutí detekuje stav Zavřeno.
-U sekvenčních vrat bývá tento senzor umísťován na horní lištu a k sepnutí dochází při stavu Otevřeno. Při tomto řešení senzor hlásí zavřeno hned při zajájení zavírání. Pokud z nějakého důvodu nedojde k plnému zavření, i tak je hlášeno Zavřeno. to není šťastné řešení. Toto řešení ale také vyžaduje ve FW nastavit u binárního senzoru 
+U sekvenčních vrat bývá tento senzor umísťován na horní lištu a k sepnutí dochází při stavu Otevřeno. Při tomto řešení senzor hlásí zavřeno hned při zajájení zavírání. Pokud z nějakého důvodu nedojde k plnému zavření, i tak je hlášeno Zavřeno. to není šťastné řešení. Toto řešení ale také vyžaduje ve FW nastavit u binárního senzoru `inverted: True` 
 
-`inverted: True`
+```
+binary_sensor:
+  - platform: gpio
+    pin:
+      number: GPIO14
+      mode: INPUT_PULLUP
+      
+# Použít v případě, že magnetický senzor sepnutím detekuje Otevřeno
+#     inverted: true 
+#
+    name: "Garážová vrata"
+    device_class: garage_door
+```
+
 
 ## Firmware
 Na desku je nahrán firmware ESPhome. Vedle základních senzorů jsem nahrál další senzory, které posílají různé informace o zařízení
@@ -60,3 +73,18 @@ Na desku je nahrán firmware ESPhome. Vedle základních senzorů jsem nahrál d
 ![](https://github.com/mamo-nick/garage-door/blob/main/Karta_garaz.png?raw=true)
 
 Soubor ke stažení: [vrata.yaml](http://localhost/ "link title")
+
+## Automatizace
+Automatické otevírání vrat při příjezdu domů je postaveno na vstupu do zóny na začátku ulice za podmínky že jedu více jak 20 km/hod. Tím, že ulice je jednosměrná, je eliminováno otevření vrat při odjezdu z domu.
+Pro trackování jsem použil integraci Life360.
+
+- [ ]  TASK:  stávající podmínku "jedu rychleji než 20 km/h" vyměnit za podmínku "mobil je přes bluetooth spárován s BT v autě". Tím eliminuji stav, kdy jedu s někým v jiném autě.
+
+
+## Zdroje informací
+- Hlavním zdrojem informací pro tuto realizaci je [DrZzs a jeho video](https://www.youtube.com/watch?v=AU1KD_aJSMY).
+- Dalším a neméně důležitý zdroj je [blog Jirky Vorálka](https://blog.vyoralek.cz/iot/centrum-chytre-domacnosti-homeassistant-hass-io-6-cast-sonoff-esphome/), kde jsem se seznamoval s flashováním a i teď je pro mě studnice informací.
+
+A dále 
+- [homeassistant.io](https://www.home-assistant.io/docs/)
+- [esphome.io](https://esphome.io)
