@@ -1,0 +1,17 @@
+- id: '1594012580906'
+  alias: Otevření garáže
+  description: Při příjezdu domů autem otevře garáž
+  trigger:
+  - entity_id: person.martin
+    event: enter
+    platform: zone
+    zone: zone.prijezd
+  condition:
+  - condition: state
+    entity_id: device_tracker.life360_martin_moravec
+    state: driving
+  action:
+  - data: {}
+    entity_id: switch.ovladani_vrat
+    service: switch.turn_on
+  mode: single
