@@ -14,7 +14,7 @@ Vlastní ovládání je možno
 ### Cílové řešení
 Cílem je ovládat vrata z prostředí Home Assistant a to ručně nebo pomocí automatizace.
 Dále pomocí magnetického senzoru získat informaci o poloze vrat (otevřeno - zavřeno) a pomocí ultrazvukového senzoru na měření vzdálenosti získat informaci o obsazenosti garáže (auto je doma - pryč).
-## Použitý materiál
+## Realizace
 ### Hardware
 - [Sonoff SV - bezdrátový wi-fi spínač](https://www.aliexpress.com/item/4000898615200.html "Sonoff SV - bezdrátový wi-fi spínač")
 - [Step down DC DC - nastavitelný měnič](https://www.aliexpress.com/item/4000064597454.html "Step down DC DC")
