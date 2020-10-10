@@ -30,3 +30,33 @@ Dále pomocí magnetického senzoru získat informaci o poloze vrat (otevřeno -
 - [Dupont propojovací kabely samice - samice 20 cm](https://www.aliexpress.com/item/32825558073.html "Dupont propojovací kabely samice - samice 20 cm")
 - Držák na HC-RS04 - [vytištěn na 3D tiskárně](https://www.thingiverse.com/thing:189585 "vytištěn na 3D tiskárně")
 - a běžný spotřební materiál (smršťovací bužírka, izolačka, kabelové držáky, stahovací pásky, pájecí materiál)
+
+### Příprava
+1. **Odstranit na desce Sonoff SV dva rezistory v blizkosti napájení** - tím dojde k přerušení +5V na vstup relé
+2. Napájení konktorů (z Dupont kabelů) na kabel pro HC-SR04 a na dvoulinku pro magnetický senzor
+
+### Zapojení
+#### Napájení
+Napájení je realizováno z jednotky SIMU, kde je ze svorek 10 (+) a 12 (-) bráno 24 V. To je následně pomocí step-down sraženo na 5 V. Tím odpadá nutnost externího napájení z adaptéru. Použit UTP kabel (2x dvě žíly).
+#### Senzory
+|  Sonoff SV | Senzor  |   |
+| ------------ | ------------ | ------------ |
+|  GPIO5 | Trigger  |HC-SR04   |
+|GPIO4   |Echo   | HC-SR04  |
+| GPIO14  |  |  magnet. senzor  |
+
+#### Schéma zapojení
+![](https://github.com/mamo-nick/garage-door/blob/main/Sch%C3%A9ma%20zapojen%C3%AD%20II.png?raw=true)
+
+Relé desky je na vstupu propojeno s SIMU jednotkou, svorka 14 (+) a na výstupu svorka 18 (-). Použit UTP kabel (zbývající 2x dvě žíly).
+Magnetický senzor je připojen dvoulinkou k GPIO14 a Ground. Samotné umístění senzoru je u podlahy, tedy jeho sepnutí detekuje stav Zavřeno.
+U sekvenčních vrat bývá tento senzor umísťován na horní lištu a k sepnutí dochází při stavu Otevřeno. Při tomto řešení senzor hlásí zavřeno hned při zajájení zavírání. Pokud z nějakého důvodu nedojde k plnému zavření, i tak je hlášeno Zavřeno. to není šťastné řešení. Toto řešení ale také vyžaduje ve FW nastavit u binárního senzoru 
+
+`inverted: True`
+
+## Firmware
+Na desku je nahrán firmware ESPhome. Vedle základních senzorů jsem nahrál další senzory, které posílají různé informace o zařízení
+
+![](https://github.com/mamo-nick/garage-door/blob/main/Karta_garaz.png?raw=true)
+
+Soubor ke stažení: [vrata.yaml](http://localhost/ "link title")
