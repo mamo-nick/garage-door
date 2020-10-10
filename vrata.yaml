@@ -1,0 +1,121 @@
+esphome:
+  name: vrata
+  platform: ESP8266
+  board: esp01_1m
+
+wifi:
+  ssid: !secret wifi1_SSID
+  password: !secret wifi1_password
+
+# Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: "Vrata Fallback Hotspot"
+    password: "3cEcgAaclxAC"
+
+captive_portal:
+
+# Enable logging
+logger:
+
+# Enable Home Assistant API
+api:
+
+ota:
+
+binary_sensor:
+  - platform: gpio
+    pin:
+      number: GPIO14
+      mode: INPUT_PULLUP
+      
+# Použít v případě, že magnetický senzor sepnutím detekuje Otevřeno
+#     inverted: true 
+#
+    name: "Garážová vrata"
+    device_class: garage_door
+    
+  - platform: template
+    name: "Fiesta je..."
+    device_class: presence
+    lambda: |-
+      if (id(ultrasonic_sensor1).state < 1.6) {
+        // car is in the garage
+        return true;
+      } else {
+        // no car
+        return false;
+      }   
+
+  - platform: status
+    name: "Vrata Stav"
+
+switch:
+  - platform: gpio
+    pin: GPIO12
+    id: relay
+  - platform: template
+    icon: "mdi:arrow-up-down-bold-outline"
+    name: "Ovládání vrat"
+    turn_on_action:
+    - switch.turn_on: relay
+    - delay: 900ms
+    - switch.turn_off: relay
+  - platform: restart
+    name: "Vrata restart"
+
+sensor:
+  - platform: ultrasonic
+    id: ultrasonic_sensor1
+    trigger_pin: GPIO05
+    echo_pin: GPIO04
+    name: "Fiesta"
+    update_interval: 5s
+    filters:
+      filter_out: nan
+    timeout: 9m
+  - platform: wifi_signal
+    name: "Vrata WiFi signál"
+    update_interval: 60s    
+  - platform: uptime
+    name: "Vrata Doba běhu v sec." 
+    id: uptime_s
+    update_interval: 60s
+    
+text_sensor:
+  - platform: template
+    name: "Vrata Doba běhu"
+    lambda: |-
+      uint32_t dur = id(uptime_s).state;
+      int dys = 0;
+      int hrs = 0;
+      int mnts = 0;
+      if (dur > 86399) {
+      dys = trunc(dur / 86400);
+      dur = dur - (dys * 86400);
+      }
+      if (dur > 3599) {
+      hrs = trunc(dur / 3600);
+      dur = dur - (hrs * 3600);
+      }
+      if (dur > 59) {
+      mnts = trunc(dur / 60);
+      dur = dur - (mnts * 60);
+      }
+      char buffer[17];
+      sprintf(buffer, "%ud %02uh %02um %02us", dys, hrs, mnts, dur);
+      return {buffer};
+    icon: mdi:clock-start
+    update_interval: 60s
+  - platform: version
+    name: "Vrata Verze FW"
+  - platform: wifi_info
+    ip_address:
+      name: "Vrata IP Address"
+    ssid:
+      name: "Vrata Connected SSID"
+    bssid:
+      name: "Vrata Connected BSSID"
+    mac_address:
+      name: "Vrata Mac Wifi Address"
+      
+# by mamo-nick
