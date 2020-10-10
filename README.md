@@ -49,8 +49,7 @@ Napájení je realizováno z jednotky SIMU, kde je ze svorek 10 (+) a 12 (-) br�
 ![](https://github.com/mamo-nick/garage-door/blob/main/Sch%C3%A9ma%20zapojen%C3%AD%20II.png?raw=true)
 
 Relé desky je na vstupu propojeno s SIMU jednotkou, svorka 14 (+) a na výstupu svorka 18 (-). Použit UTP kabel (zbývající 2x dvě žíly).
-Magnetický senzor je připojen dvoulinkou k GPIO14 a Ground. Samotné umístění senzoru je u podlahy, tedy jeho sepnutí detekuje stav Zavřeno.
-U sekvenčních vrat bývá tento senzor umísťován na horní lištu a k sepnutí dochází při stavu Otevřeno. Při tomto řešení senzor hlásí zavřeno hned při zajájení zavírání. Pokud z nějakého důvodu nedojde k plnému zavření, i tak je hlášeno Zavřeno. to není šťastné řešení. Toto řešení ale také vyžaduje ve FW nastavit u binárního senzoru `inverted: True` 
+Magnetický senzor je připojen dvoulinkou k GPIO14 a Ground. Samotné umístění senzoru je u podlahy, tedy jeho sepnutí detekuje stav Zavřeno. U sekvenčních vrat bývá tento senzor umísťován na horní lištu a k sepnutí dochází při stavu Otevřeno. Při tomto řešení senzor hlásí zavřeno hned při zajájení zavírání. Pokud z nějakého důvodu nedojde k plnému zavření, i tak je hlášeno Zavřeno, což není šťastné řešení. Toto řešení ale také vyžaduje ve FW nastavit u binárního senzoru `inverted: True` 
 
 ```
 binary_sensor:
@@ -64,6 +63,26 @@ binary_sensor:
 #
     name: "Garážová vrata"
     device_class: garage_door
+```
+
+
+Ultrazvukový senzor HC-SR14 je spojen s deskou dle tabulky a schéma výše. Signalizace přítomnosti vozidla je realizována nastavením senzoru jako binární. 
+Stav true/false je nastaven na podmínku: je-li naměřená vzdálenost menší než 1,6 m, pak je auto přítomno. uto hodnotu je třeba nastavit podle vzdálenosti umístění senzoru od auta. 
+
+```
+   
+  - platform: template
+    name: "Fiesta je..."
+    device_class: presence
+    lambda: |-
+      if (id(ultrasonic_sensor1).state < 1.6) {
+        // car is in the garage
+        return true;
+      } else {
+        // no car
+        return false;
+      }   
+
 ```
 
 
