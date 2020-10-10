@@ -67,7 +67,7 @@ binary_sensor:
 
 
 Ultrazvukový senzor HC-SR14 je spojen s deskou dle tabulky a schéma výše. Signalizace přítomnosti vozidla je realizována nastavením senzoru jako binární. 
-Stav true/false je nastaven na podmínku: je-li naměřená vzdálenost menší než 1,6 m, pak je auto přítomno. uto hodnotu je třeba nastavit podle vzdálenosti umístění senzoru od auta. 
+Stav true/false je nastaven na podmínku: je-li naměřená vzdálenost menší než 1,6 m, pak je auto přítomno. Tuto hodnotu je třeba nastavit podle vzdálenosti umístění senzoru od auta. 
 
 ```
    
