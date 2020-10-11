@@ -1,3 +1,5 @@
+# Část souboru obsahující integraci Life360
+
 life360:
   accounts:
     - username: !secret life360_username
