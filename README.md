@@ -14,7 +14,7 @@ Vlastní ovládání je možno
 ### Cílové řešení
 Cílem je ovládat vrata z prostředí Home Assistant a to ručně nebo pomocí automatizace.
 Dále pomocí magnetického senzoru získat informaci o poloze vrat (otevřeno - zavřeno) a pomocí ultrazvukového senzoru na měření vzdálenosti získat informaci o obsazenosti garáže (auto je doma - pryč).
-## Realizace
+## Použitý materiál
 ### Hardware
 - [Sonoff SV - bezdrátový wi-fi spínač](https://www.aliexpress.com/item/4000898615200.html "Sonoff SV - bezdrátový wi-fi spínač")
 - [Step down DC DC - nastavitelný měnič](https://www.aliexpress.com/item/4000064597454.html "Step down DC DC")
@@ -67,7 +67,7 @@ binary_sensor:
 
 
 Ultrazvukový senzor HC-SR14 je spojen s deskou dle tabulky a schéma výše. Signalizace přítomnosti vozidla je realizována nastavením senzoru jako binární. 
-Stav true/false je nastaven na podmínku: je-li naměřená vzdálenost menší než 1,6 m, pak je auto přítomno. Tuto hodnotu je třeba nastavit podle vzdálenosti umístění senzoru od auta. 
+Stav true/false je nastaven na podmínku: je-li naměřená vzdálenost menší než 1,6 m, pak je auto přítomno. uto hodnotu je třeba nastavit podle vzdálenosti umístění senzoru od auta. 
 
 ```
    
@@ -94,10 +94,17 @@ Na desku je nahrán firmware ESPhome. Vedle základních senzorů jsem nahrál d
 Soubor ke stažení: [vrata.yaml](http://localhost/ "link title")
 
 ## Automatizace
-Automatické otevírání vrat při příjezdu domů je postaveno na vstupu do zóny na začátku ulice za podmínky že jedu více jak 20 km/hod. Tím, že ulice je jednosměrná, je eliminováno otevření vrat při odjezdu z domu.
-Pro trackování jsem použil integraci Life360.
+Automatické otevírání vrat při příjezdu domů je postaveno na vstupu do zóny na začátku ulice za podmínky že můj stav je driving. Pro trackování polohy používám aplikaci Life360 a její integraci do HA.
 
-- [ ]  TASK:  stávající podmínku "jedu rychleji než 20 km/h" vyměnit za podmínku "mobil je přes bluetooth spárován s BT v autě". Tím eliminuji stav, kdy jedu s někým v jiném autě.
+Nastavení: 
+- v aplikaci je třeba mít nastaven Drive Detection na ON
+- v configuration.yaml pak definujete rychlost, při níž se stav změní na Driving `driving_speed: 20`
+
+
+Tím, že ulice je jednosměrná, je eliminováno otevření vrat při odjezdu z domu.
+
+
+TASK:  stávající podmínku `state: driving` vyměnit za podmínku "mobil je přes bluetooth spárován s BT v autě". Tím eliminuji stav, kdy jedu s někým v jiném autě.
 
 
 ## Zdroje informací
@@ -107,3 +114,4 @@ Pro trackování jsem použil integraci Life360.
 A dále 
 - [homeassistant.io](https://www.home-assistant.io/docs/)
 - [esphome.io](https://esphome.io)
+- [Life360](https://www.life360.com/intl/)
