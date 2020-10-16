@@ -26,14 +26,14 @@ Dále pomocí magnetického senzoru získat informaci o poloze vrat (otevřeno -
 - Dvoulinka (původně kabel k reproduktoru) - k magnetickému senzoru - 2 m
 - UTP kabel (použil jsem starší) - propojení SIMU jednotky a Sonoff SV - 0,6 m
 - [Svorka na DPS 2 piny 2.54mm](https://www.aliexpress.com/item/32867190033.html "Svorka na DPS 2 piny 2.54mm") - na desku Sonoff SV - 2ks
-- [Krabice E113 85x85x40mm IP54](https://www.e1.cz/produkt/1230649-krabice-e113-85x85x40mm-ip54?t=popis "Rozbočovací krabička") - umístění desky a step downu - 1 ks
+- [Krabice E113 85x85x40mm IP54](https://www.e1.cz/produkt/1230649-krabice-e113-85x85x40mm-ip54?t=popis "Rozbočovací krabička") - umístění desky a step-downu - 1 ks
 - [Dupont propojovací kabely samice - samice 20 cm](https://www.aliexpress.com/item/32825558073.html "Dupont propojovací kabely samice - samice 20 cm")
 - Držák na HC-RS04 - [vytištěn na 3D tiskárně](https://www.thingiverse.com/thing:189585 "vytištěn na 3D tiskárně")
 - a běžný spotřební materiál (smršťovací bužírka, izolačka, kabelové držáky, stahovací pásky, pájecí materiál)
 
 ### Příprava
 1. **Odstranit na desce Sonoff SV dva rezistory v blizkosti napájení** - tím dojde k přerušení +5V na vstup relé
-2. Napájení konktorů (z Dupont kabelů) na kabel pro HC-SR04 a na dvoulinku pro magnetický senzor
+2. Připájení konektorů (z Dupont kabelů) na kabel pro HC-SR04 a na dvoulinku pro magnetický senzor
 
 ### Zapojení
 #### Napájení
@@ -84,7 +84,7 @@ Stav true/false je nastaven na podmínku: je-li naměřená vzdálenost menší 
       }   
 
 ```
-
+Samotný senzor je umístěn na stropě nad autem.
 
 ## Firmware
 Na desku je nahrán firmware ESPhome. Vedle základních senzorů jsem nahrál další senzory, které posílají různé informace o zařízení
