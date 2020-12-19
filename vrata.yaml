@@ -69,7 +69,7 @@ sensor:
     trigger_pin: GPIO05
     echo_pin: GPIO04
     name: "Fiesta"
-    update_interval: 5s
+    update_interval: 20s
     filters:
       filter_out: nan
     timeout: 9m
