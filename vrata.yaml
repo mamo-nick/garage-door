@@ -80,6 +80,9 @@ sensor:
     name: "Vrata Doba běhu v sec." 
     id: uptime_s
     update_interval: 60s
+  - platform: adc
+    pin: VCC
+    name: "Vrata VCC Voltage"
     
 text_sensor:
   - platform: template
