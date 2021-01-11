@@ -91,7 +91,7 @@ Na desku je nahrán firmware ESPhome. Vedle základních senzorů jsem nahrál d
 
 ![](https://github.com/mamo-nick/garage-door/blob/main/Karta_garaz.png?raw=true)
 
-Soubor ke stažení: [vrata.yaml](http://localhost/ "link title")
+Soubor ke stažení: [vrata.yaml](https://github.com/mamo-nick/garage-door/blob/main/vrata.yaml)
 
 ## Automatizace
 Automatické otevírání vrat při příjezdu domů je postaveno na vstupu do zóny na začátku ulice za podmínky že můj stav je driving. Pro trackování polohy používám aplikaci Life360 a její integraci do HA.
