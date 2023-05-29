@@ -94,24 +94,12 @@ Na desku je nahrán firmware ESPhome. Vedle základních senzorů jsem nahrál d
 Soubor ke stažení: [vrata.yaml](https://github.com/mamo-nick/garage-door/blob/main/vrata.yaml)
 
 ## Automatizace
-Automatické otevírání vrat při příjezdu domů je postaveno na vstupu do zóny na začátku ulice za podmínky že můj stav je driving. Pro trackování polohy používám aplikaci Life360 a její integraci do HA.
-
-Nastavení: 
-- v aplikaci je třeba mít nastaven Drive Detection na ON
-- v configuration.yaml pak definujete rychlost, při níž se stav změní na Driving `driving_speed: 20`
-
-
-Tím, že ulice je jednosměrná, je eliminováno otevření vrat při odjezdu z domu.
-
-
-TASK:  stávající podmínku `state: driving` vyměnit za podmínku "mobil je přes bluetooth spárován s BT v autě". Tím eliminuji stav, kdy jedu s někým v jiném autě.
-
+Otevírání vrat je triggerem pro rozsvícení světla v garáži, když je tma. 
 
 ## Zdroje informací
 - Hlavním zdrojem informací pro tuto realizaci je [DrZzs a jeho video](https://www.youtube.com/watch?v=AU1KD_aJSMY).
-- Dalším a neméně důležitý zdroj je [blog Jirky Vorálka](https://blog.vyoralek.cz/iot/centrum-chytre-domacnosti-homeassistant-hass-io-6-cast-sonoff-esphome/), kde jsem se seznamoval s flashováním a i teď je pro mě studnice informací.
+- Dalším a neméně důležitý zdroj je [blog Jirky Vorálka](https://blog.vyoralek.cz/iot/centrum-chytre-domacnosti-homeassistant-hass-io-6-cast-sonoff-esphome/), kde jsem se seznamoval s flashováním.
 
 A dále 
 - [homeassistant.io](https://www.home-assistant.io/docs/)
 - [esphome.io](https://esphome.io)
-- [Life360](https://www.life360.com/intl/)
